@@ -21,7 +21,7 @@ public class MainViewModel extends ViewModel {
         this.searchQuery = new MutableLiveData<>();
     }
 
-    public void getSearchResultOnClick() {
+    public void onSearchButtonClick() {
         getSearchResult();
     }
 

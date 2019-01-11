@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-class Owner {
+public class Owner {
     @Json(name = "reputation")
     private Integer reputation;
     @Json(name = "user_id")

@@ -1,15 +1,18 @@
 package com.endrjudev.stackoverflowsearchapp.view;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.endrjudev.stackoverflowsearchapp.R;
 import com.endrjudev.stackoverflowsearchapp.databinding.ActivityMainBinding;
+import com.endrjudev.stackoverflowsearchapp.view.adapter.SearchAdapter;
 import com.endrjudev.stackoverflowsearchapp.viewmodel.MainViewModel;
+
+import org.apache.commons.collections4.CollectionUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,23 +25,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
-        initializeUi();
         initializeObservers();
+        initializeUi();
     }
 
     private void initializeObservers() {
-        viewModel.getResponseLiveData()
-                .observe(this, stackResponseBaseResponse -> {
-                    if (stackResponseBaseResponse != null) {
-                        //TODO 10.01.2019 Implement navigation
-                    }
-                });
+        //observe
     }
 
     private void initializeUi() {
-        binding.searchButton.setOnClickListener(v ->
-                Toast.makeText(MainActivity.this, "Search button click", Toast.LENGTH_SHORT).show());
-//                viewModel.getSearchResultOnClick());
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, new SearchFragment())
+                .commit();
     }
 }
