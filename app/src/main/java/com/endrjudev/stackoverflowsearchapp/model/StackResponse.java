@@ -1,5 +1,7 @@
 package com.endrjudev.stackoverflowsearchapp.model;
 
+import com.squareup.moshi.Json;
+
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -11,6 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StackResponse extends BaseResponse {
+public class StackResponse {
+    @Json(name = "items")
     private List<Item> items;
 }

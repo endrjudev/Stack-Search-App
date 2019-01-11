@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,19 +10,85 @@
             type="com.endrjudev.stackoverflowsearchapp.model.Item" />
     </data>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:minHeight="50dp"
-        android:orientation="vertical">
+        android:layout_margin="@dimen/dimen_2dp"
+        android:background="@color/colorPrimary"
+        android:elevation="@dimen/dimen_8dp"
+        android:orientation="vertical"
+        app:cardCornerRadius="@dimen/dimen_4dp">
 
-        <TextView
-            android:id="@+id/question_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TESTOWE ZAPYTANIE NA STACKOVERFLOW"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_inner_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/question_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:maxLines="2"
+                android:text="@{item.title}"
+                android:textAlignment="viewStart"
+                android:textColor="@color/textWhiteColor"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/answer_count"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_profile_image"
+                tools:text="Przykładowy tytuł pytania ze StackOverflow" />
+
+            <ImageView
+                android:id="@+id/user_profile_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:src="@drawable/ic_user_account"
+                android:tint="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                android:text="@{item.owner.displayName}"
+                android:textColor="@color/textWhiteColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/user_profile_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/user_profile_image"
+                app:layout_constraintTop_toTopOf="@+id/user_profile_image"
+                tools:text="NazwaUżytkownika" />
+
+            <TextView
+                android:id="@+id/answer_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                android:text="@{String.valueOf(item.answerCount)}"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textWhiteColor"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="@+id/question_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/question_title"
+                app:layout_constraintTop_toTopOf="@+id/question_title"
+                tools:text="2319" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

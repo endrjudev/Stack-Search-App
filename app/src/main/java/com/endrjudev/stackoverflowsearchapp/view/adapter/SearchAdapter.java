@@ -13,14 +13,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
-
-    private List<Item> itemList;
+public class SearchAdapter extends ListAdapter<Item, SearchAdapter.SearchViewHolder> {
 
     public SearchAdapter() {
-        this.itemList = new LinkedList<>();
+        super(new ItemDiffCallback());
     }
 
     @NonNull
@@ -33,22 +33,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
-        final Item item = itemList.get(position);
-        holder.bind(createOnClickListener(holder.binding.getRoot().getContext()), item);
-    }
-
-    @Override
-    public int getItemCount() {
-        return itemList.size();
+        holder.bind(createOnClickListener(holder.binding.getRoot().getContext()), getItem(position));
     }
 
     private View.OnClickListener createOnClickListener(Context context) {
         return v -> Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show();
-    }
-
-    public void setItems(@NonNull List<Item> items) {
-        itemList.clear();
-        itemList.addAll(items);
     }
 
     static class SearchViewHolder extends RecyclerView.ViewHolder {
@@ -64,6 +53,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             binding.itemLayout.setOnClickListener(listener);
             binding.setItem(item);
             binding.executePendingBindings();
+        }
+    }
+
+    static class ItemDiffCallback extends DiffUtil.ItemCallback<Item> {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Item oldItem, @NonNull Item newItem) {
+            return oldItem.getQuestionId() == newItem.getQuestionId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Item oldItem, @NonNull Item newItem) {
+            return oldItem.equals(newItem);
         }
     }
 }

@@ -2,39 +2,36 @@ package com.endrjudev.stackoverflowsearchapp.viewmodel;
 
 import com.endrjudev.stackoverflowsearchapp.data.NetworkDataSource;
 import com.endrjudev.stackoverflowsearchapp.data.Repository;
-import com.endrjudev.stackoverflowsearchapp.model.BaseRequest;
-import com.endrjudev.stackoverflowsearchapp.model.BaseResponse;
+import com.endrjudev.stackoverflowsearchapp.model.StackRequest;
 import com.endrjudev.stackoverflowsearchapp.model.StackResponse;
+
+import org.apache.commons.lang3.StringUtils;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class MainViewModel extends ViewModel {
 
+    private MutableLiveData<StackResponse> queryLiveData;
     private Repository dataSource;
-    private MutableLiveData<BaseResponse<StackResponse>> responseLiveData;
-    private MutableLiveData<String> searchQuery;
 
     public MainViewModel() {
         this.dataSource = new NetworkDataSource();
-        this.responseLiveData = new MutableLiveData<>();
-        this.searchQuery = new MutableLiveData<>();
+        this.queryLiveData = new MutableLiveData<>();
     }
 
-    public void onSearchButtonClick() {
-        getSearchResult();
+    public void onSearchButtonClick(String query) {
+        if (StringUtils.isNotBlank(query)) {
+            getSearchResult(query);
+        }
     }
 
-    private void getSearchResult() {
-        final BaseRequest request = new BaseRequest(searchQuery.getValue());
-        dataSource.getSearchResult(request, responseLiveData);
+    private void getSearchResult(String query) {
+        final StackRequest request = new StackRequest(query);
+        dataSource.getSearchResult(request, this.queryLiveData);
     }
 
-    public MutableLiveData<BaseResponse<StackResponse>> getResponseLiveData() {
-        return responseLiveData;
-    }
-
-    public MutableLiveData<String> getSearchQuery() {
-        return searchQuery;
+    public MutableLiveData<StackResponse> getQueryLiveData() {
+        return queryLiveData;
     }
 }

@@ -51,6 +51,8 @@ dependencies {
     //Moshi
     implementation 'com.squareup.moshi:moshi:1.8.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.5.0'
+    //Logging Interceptor
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
 
     compileOnly 'org.projectlombok:lombok:1.16.20'
     annotationProcessor 'org.projectlombok:lombok:1.16.20'

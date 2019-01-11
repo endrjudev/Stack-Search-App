@@ -39,7 +39,7 @@ public class SearchFragment extends Fragment {
                 R.layout.fragment_search,
                 container,
                 false);
-        
+
         initializeUi();
         initializeObservers();
 
@@ -56,11 +56,13 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    private void initializeObservers(){
-        viewModel.getResponseLiveData().observe(this, response -> {
-            if (SystemUtils.isResponseOK(response)
-                    && CollectionUtils.isNotEmpty(response.getResponse().getItems())) {
-                adapter.setItems(response.getResponse().getItems());
+    private void initializeObservers() {
+        viewModel.getQueryLiveData().observe(this, response -> {
+            if (CollectionUtils.isNotEmpty(response.getItems())) {
+                adapter.submitList(response.getItems());
+                binding.queryResultRecycler.setVisibility(View.VISIBLE);
+            } else {
+                binding.queryResultRecycler.setVisibility(View.GONE);
             }
         });
     }

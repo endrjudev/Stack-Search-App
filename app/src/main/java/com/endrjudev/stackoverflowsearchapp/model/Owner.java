@@ -16,7 +16,7 @@ public class Owner {
     private Integer reputation;
     @Json(name = "user_id")
     private Integer userId;
-    @Json(name = "reputation")
+    @Json(name = "user_type")
     private String userType;
     @Json(name = "profile_image")
     private String profileImage;

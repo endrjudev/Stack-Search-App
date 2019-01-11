@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BaseRequest {
+public class StackRequest {
     private String inTitle;
 }
