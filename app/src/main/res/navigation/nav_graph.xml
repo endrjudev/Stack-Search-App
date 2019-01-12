@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/searchFragment">
+    app:startDestination="@id/startFragment">
 
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.endrjudev.stacksearchapp.view.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
@@ -18,9 +18,13 @@
             app:launchSingleTop="true">
             <argument
                 android:name="url"
-                app:argType="string"
-                android:defaultValue="http://www.stackoverflow.com" />
+                android:defaultValue="http://www.stackoverflow.com"
+                app:argType="string" />
         </action>
+        <argument
+            android:name="query"
+            android:defaultValue='""'
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -31,5 +35,19 @@
             android:name="url"
             android:defaultValue='""'
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.endrjudev.stacksearchapp.view.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start">
+        <action
+            android:id="@+id/action_startFragment_to_searchFragment"
+            app:destination="@id/searchFragment">
+            <argument
+                android:name="query"
+                android:defaultValue="stackoverflow"
+                app:argType="string" />
+        </action>
     </fragment>
 </navigation>

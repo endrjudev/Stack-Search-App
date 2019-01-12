@@ -3,4 +3,5 @@
     <string name="insert_search_query_hint">Wpisz szukaną frazę</string>
     <string name="search_button">Szukaj</string>
     <string name="test_string">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nunc mi, interdum nec interdum sodales, lacinia in tortor. Nulla eget enim blandit, pellentesque velit vitae, aliquam libero. Ut vehicula iaculis elit, et aliquet purus viverra quis.</string>
+    <string name="search_title">Wpisz frazę...</string>
 </resources>
