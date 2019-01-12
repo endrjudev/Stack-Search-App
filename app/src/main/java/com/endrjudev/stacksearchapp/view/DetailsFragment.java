@@ -1,10 +1,12 @@
 package com.endrjudev.stacksearchapp.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 
 import com.endrjudev.stacksearchapp.R;
 import com.endrjudev.stacksearchapp.databinding.FragmentDetailBinding;
@@ -21,6 +23,7 @@ public class DetailsFragment extends Fragment {
     private FragmentDetailBinding binding;
     private MainViewModel viewModel;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -34,6 +37,9 @@ public class DetailsFragment extends Fragment {
                 container,
                 false);
 
+        final WebSettings webSettings = binding.detailWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
         initializeUi();
 
         return binding.getRoot();
@@ -41,8 +47,10 @@ public class DetailsFragment extends Fragment {
 
     private void initializeUi() {
         final Activity activity = getActivity();
-        if (activity != null) {
+        if (activity != null && getArguments() != null) {
             viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+            final String targetUrl = DetailsFragmentArgs.fromBundle(getArguments()).getUrl();
+            binding.detailWebView.loadUrl(targetUrl);
         }
     }
 }

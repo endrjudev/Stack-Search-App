@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/detailsFragment">
+    app:startDestination="@id/searchFragment">
 
     <fragment
         android:id="@+id/searchFragment"
@@ -12,11 +12,24 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true">
+            <argument
+                android:name="url"
+                app:argType="string"
+                android:defaultValue="http://www.stackoverflow.com" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.endrjudev.stacksearchapp.view.DetailsFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="url"
+            android:defaultValue='""'
+            app:argType="string" />
+    </fragment>
 </navigation>

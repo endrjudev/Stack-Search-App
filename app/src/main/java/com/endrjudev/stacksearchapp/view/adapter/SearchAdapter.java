@@ -1,20 +1,21 @@
 package com.endrjudev.stacksearchapp.view.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.endrjudev.stacksearchapp.R;
 import com.endrjudev.stacksearchapp.databinding.QueryItemBinding;
 import com.endrjudev.stacksearchapp.model.Item;
+import com.endrjudev.stacksearchapp.view.SearchFragmentDirections;
+
+import org.apache.commons.lang3.StringUtils;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import timber.log.Timber;
 
 public class SearchAdapter extends ListAdapter<Item, SearchAdapter.SearchViewHolder> {
 
@@ -32,13 +33,19 @@ public class SearchAdapter extends ListAdapter<Item, SearchAdapter.SearchViewHol
 
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
-        holder.bind(createOnClickListener(holder.binding.getRoot().getContext()), getItem(position));
+        holder.bind(createOnClickListener(getItem(position)), getItem(position));
     }
 
-    private View.OnClickListener createOnClickListener(Context context) {
+    private View.OnClickListener createOnClickListener(Item item) {
         return v -> {
-            Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show();
-            Navigation.findNavController(v).navigate(R.id.action_searchFragment_to_detailsFragment);
+            Timber.i("Question clicked");
+            final SearchFragmentDirections.ActionSearchFragmentToDetailsFragment action =
+                    SearchFragmentDirections.actionSearchFragmentToDetailsFragment();
+            final String url = item.getLink();
+            if (StringUtils.isNotBlank(url)) {
+                action.setUrl(url);
+            }
+            Navigation.findNavController(v).navigate(action);
         };
     }
 

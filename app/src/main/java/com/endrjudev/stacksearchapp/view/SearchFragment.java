@@ -41,6 +41,7 @@ public class SearchFragment extends Fragment {
 
         initializeUi();
         initializeObservers();
+        initializeSwipeToRefreshListener();
 
         return binding.getRoot();
     }
@@ -59,10 +60,15 @@ public class SearchFragment extends Fragment {
         viewModel.getQueryLiveData().observe(this, response -> {
             if (CollectionUtils.isNotEmpty(response.getItems())) {
                 adapter.submitList(response.getItems());
-                binding.queryResultRecycler.setVisibility(View.VISIBLE);
+                binding.swipeRefreshLayout.setRefreshing(false);
             } else {
-                binding.queryResultRecycler.setVisibility(View.GONE);
+                binding.swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    private void initializeSwipeToRefreshListener() {
+        binding.swipeRefreshLayout.setOnRefreshListener(() ->
+                viewModel.getSearchResult());
     }
 }

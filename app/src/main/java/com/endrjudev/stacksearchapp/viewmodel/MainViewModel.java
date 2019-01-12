@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel;
 public class MainViewModel extends ViewModel {
 
     private MutableLiveData<StackResponse> queryLiveData;
+    private String lastInputQuery;
     private Repository dataSource;
 
     public MainViewModel() {
@@ -22,12 +23,13 @@ public class MainViewModel extends ViewModel {
 
     public void onSearchButtonClick(String query) {
         if (StringUtils.isNotBlank(query)) {
-            getSearchResult(query);
+            lastInputQuery = query;
+            getSearchResult();
         }
     }
 
-    private void getSearchResult(String query) {
-        final StackRequest request = new StackRequest(query);
+    public void getSearchResult() {
+        final StackRequest request = new StackRequest(lastInputQuery);
         dataSource.getSearchResult(request, this.queryLiveData);
     }
 

@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,10 +33,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeUi() {
+        final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController.navigate(R.id.searchFragment);
         setOnQueryTextListener();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, new SearchFragment())
-                .commit();
     }
 
     private void setOnQueryTextListener() {
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 viewModel.onSearchButtonClick(query);
+                binding.search.onWindowFocusChanged(false);
                 return false;
             }
 
