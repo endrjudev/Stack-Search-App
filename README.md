@@ -1,2 +1,2 @@
-# StackOverflow-Search-App
+# Stack-Search-App
 A simple app to query search for StackOverflow
