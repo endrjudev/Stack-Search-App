@@ -1,4 +1,4 @@
-package com.endrjudev.stackoverflowsearchapp.view.adapter;
+package com.endrjudev.stacksearchapp.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,13 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.endrjudev.stackoverflowsearchapp.databinding.QueryItemBinding;
-import com.endrjudev.stackoverflowsearchapp.model.Item;
-
-import java.util.LinkedList;
-import java.util.List;
+import com.endrjudev.stacksearchapp.R;
+import com.endrjudev.stacksearchapp.databinding.QueryItemBinding;
+import com.endrjudev.stacksearchapp.model.Item;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,7 +36,10 @@ public class SearchAdapter extends ListAdapter<Item, SearchAdapter.SearchViewHol
     }
 
     private View.OnClickListener createOnClickListener(Context context) {
-        return v -> Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show();
+        return v -> {
+            Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show();
+            Navigation.findNavController(v).navigate(R.id.action_searchFragment_to_detailsFragment);
+        };
     }
 
     static class SearchViewHolder extends RecyclerView.ViewHolder {

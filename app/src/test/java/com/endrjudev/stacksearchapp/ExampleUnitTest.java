@@ -1,4 +1,4 @@
-package com.endrjudev.stackoverflowsearchapp;
+package com.endrjudev.stacksearchapp;
 
 import org.junit.Test;
 

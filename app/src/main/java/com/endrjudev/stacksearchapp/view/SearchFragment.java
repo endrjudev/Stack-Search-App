@@ -1,4 +1,4 @@
-package com.endrjudev.stackoverflowsearchapp.view;
+package com.endrjudev.stacksearchapp.view;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,11 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.endrjudev.stackoverflowsearchapp.R;
-import com.endrjudev.stackoverflowsearchapp.databinding.FragmentSearchBinding;
-import com.endrjudev.stackoverflowsearchapp.utils.SystemUtils;
-import com.endrjudev.stackoverflowsearchapp.view.adapter.SearchAdapter;
-import com.endrjudev.stackoverflowsearchapp.viewmodel.MainViewModel;
+import com.endrjudev.stacksearchapp.R;
+import com.endrjudev.stacksearchapp.databinding.FragmentSearchBinding;
+import com.endrjudev.stacksearchapp.view.adapter.SearchAdapter;
+import com.endrjudev.stacksearchapp.viewmodel.MainViewModel;
 
 import org.apache.commons.collections4.CollectionUtils;
 

@@ -1,4 +1,4 @@
-package com.endrjudev.stackoverflowsearchapp.model;
+package com.endrjudev.stacksearchapp.model;
 
 import com.squareup.moshi.Json;
 

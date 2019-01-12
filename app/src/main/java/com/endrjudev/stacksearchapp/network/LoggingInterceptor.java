@@ -1,4 +1,4 @@
-package com.endrjudev.stackoverflowsearchapp.network;
+package com.endrjudev.stacksearchapp.network;
 
 import java.io.IOException;
 

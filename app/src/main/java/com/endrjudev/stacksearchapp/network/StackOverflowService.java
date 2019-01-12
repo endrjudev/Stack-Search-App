@@ -1,6 +1,6 @@
-package com.endrjudev.stackoverflowsearchapp.network;
+package com.endrjudev.stacksearchapp.network;
 
-import com.endrjudev.stackoverflowsearchapp.model.StackResponse;
+import com.endrjudev.stacksearchapp.model.StackResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

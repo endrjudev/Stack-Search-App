@@ -1,6 +1,6 @@
-package com.endrjudev.stackoverflowsearchapp.utils;
+package com.endrjudev.stacksearchapp.utils;
 
-import com.endrjudev.stackoverflowsearchapp.model.StackResponse;
+import com.endrjudev.stacksearchapp.model.StackResponse;
 
 public class SystemUtils {
 

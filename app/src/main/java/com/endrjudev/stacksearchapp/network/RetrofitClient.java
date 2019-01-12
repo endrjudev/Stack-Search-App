@@ -1,4 +1,4 @@
-package com.endrjudev.stackoverflowsearchapp.network;
+package com.endrjudev.stacksearchapp.network;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

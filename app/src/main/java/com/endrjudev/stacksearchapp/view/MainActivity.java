@@ -1,10 +1,10 @@
-package com.endrjudev.stackoverflowsearchapp.view;
+package com.endrjudev.stacksearchapp.view;
 
 import android.os.Bundle;
 
-import com.endrjudev.stackoverflowsearchapp.R;
-import com.endrjudev.stackoverflowsearchapp.databinding.ActivityMainBinding;
-import com.endrjudev.stackoverflowsearchapp.viewmodel.MainViewModel;
+import com.endrjudev.stacksearchapp.R;
+import com.endrjudev.stacksearchapp.databinding.ActivityMainBinding;
+import com.endrjudev.stacksearchapp.viewmodel.MainViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;

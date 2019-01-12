@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StackOverflowSearchApp</string>
+    <string name="app_name">Stack Search App</string>
     <string name="insert_search_query_hint">Wpisz szukaną frazę</string>
     <string name="search_button">Szukaj</string>
 </resources>

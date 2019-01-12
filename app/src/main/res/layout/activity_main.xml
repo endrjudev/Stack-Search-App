@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.endrjudev.stackoverflowsearchapp.viewmodel.MainViewModel" />
+            type="com.endrjudev.stacksearchapp.viewmodel.MainViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -32,7 +32,6 @@
                     android:layout_height="?attr/actionBarSize"
                     android:elevation="4dp"
                     android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                    app:layout_collapseMode="pin"
                     app:layout_scrollFlags="scroll|enterAlways"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -47,10 +46,14 @@
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
+        <fragment
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:navGraph="@navigation/nav_graph" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

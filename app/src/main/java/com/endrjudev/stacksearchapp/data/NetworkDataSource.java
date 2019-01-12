@@ -1,9 +1,9 @@
-package com.endrjudev.stackoverflowsearchapp.data;
+package com.endrjudev.stacksearchapp.data;
 
-import com.endrjudev.stackoverflowsearchapp.model.StackRequest;
-import com.endrjudev.stackoverflowsearchapp.model.StackResponse;
-import com.endrjudev.stackoverflowsearchapp.network.RetrofitClient;
-import com.endrjudev.stackoverflowsearchapp.network.StackOverflowService;
+import com.endrjudev.stacksearchapp.model.StackRequest;
+import com.endrjudev.stacksearchapp.model.StackResponse;
+import com.endrjudev.stacksearchapp.network.RetrofitClient;
+import com.endrjudev.stacksearchapp.network.StackOverflowService;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;

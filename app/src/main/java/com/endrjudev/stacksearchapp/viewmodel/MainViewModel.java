@@ -1,9 +1,9 @@
-package com.endrjudev.stackoverflowsearchapp.viewmodel;
+package com.endrjudev.stacksearchapp.viewmodel;
 
-import com.endrjudev.stackoverflowsearchapp.data.NetworkDataSource;
-import com.endrjudev.stackoverflowsearchapp.data.Repository;
-import com.endrjudev.stackoverflowsearchapp.model.StackRequest;
-import com.endrjudev.stackoverflowsearchapp.model.StackResponse;
+import com.endrjudev.stacksearchapp.data.NetworkDataSource;
+import com.endrjudev.stacksearchapp.data.Repository;
+import com.endrjudev.stacksearchapp.model.StackRequest;
+import com.endrjudev.stacksearchapp.model.StackResponse;
 
 import org.apache.commons.lang3.StringUtils;
 
