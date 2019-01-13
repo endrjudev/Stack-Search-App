@@ -14,8 +14,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="com.endrjudev.stacksearchapp.view.MainActivity"
-            android:launchMode="singleInstance"
-            android:resizeableActivity="true">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

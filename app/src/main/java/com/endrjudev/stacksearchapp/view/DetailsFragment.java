@@ -22,8 +22,8 @@ public class DetailsFragment extends Fragment {
 
     private FragmentDetailBinding binding;
     private MainViewModel viewModel;
+    private MainActivity activity;
 
-    @SuppressLint("SetJavaScriptEnabled")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -37,20 +37,29 @@ public class DetailsFragment extends Fragment {
                 container,
                 false);
 
-        final WebSettings webSettings = binding.detailWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-
         initializeUi();
 
         return binding.getRoot();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void initializeUi() {
-        final Activity activity = getActivity();
-        if (activity != null && getArguments() != null) {
-            viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+        final Activity tempActivity = getActivity();
+        if (tempActivity instanceof MainActivity) {
+            activity = (MainActivity) tempActivity;
+        }
+        if (getArguments() != null) {
+            viewModel = ViewModelProviders.of(activity).get(MainViewModel.class);
             final String targetUrl = DetailsFragmentArgs.fromBundle(getArguments()).getUrl();
             binding.detailWebView.loadUrl(targetUrl);
         }
+        if (activity.getSupportActionBar() != null) {
+            activity.getSupportActionBar().show();
+            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+            activity.getSupportActionBar().setTitle(getString(R.string.answer_details));
+        }
+        final WebSettings webSettings = binding.detailWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
     }
 }

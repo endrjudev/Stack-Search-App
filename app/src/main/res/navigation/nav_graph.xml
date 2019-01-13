@@ -14,8 +14,7 @@
             android:id="@+id/action_searchFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true">
+            app:exitAnim="@anim/nav_default_exit_anim">
             <argument
                 android:name="url"
                 android:defaultValue="http://www.stackoverflow.com"
@@ -43,10 +42,12 @@
         tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_startFragment_to_searchFragment"
-            app:destination="@id/searchFragment">
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim">
             <argument
                 android:name="query"
-                android:defaultValue="stackoverflow"
+                android:defaultValue='""'
                 app:argType="string" />
         </action>
     </fragment>

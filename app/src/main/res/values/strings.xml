@@ -3,5 +3,11 @@
     <string name="insert_search_query_hint">Wpisz szukaną frazę</string>
     <string name="search_button">Szukaj</string>
     <string name="test_string">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nunc mi, interdum nec interdum sodales, lacinia in tortor. Nulla eget enim blandit, pellentesque velit vitae, aliquam libero. Ut vehicula iaculis elit, et aliquet purus viverra quis.</string>
-    <string name="search_title">Wpisz frazę...</string>
+    <string name="search_app_title">Search Stack App</string>
+    <string name="answer_details">Szczegóły odpowiedzi</string>
+    <string name="query_result">Wyniki wyszukiwania dla frazy %s</string>
+    <string name="search">Wyszukaj frazę</string>
+    <string name="network_error">Błąd połączenia z Internetem</string>
+    <string name="empty_list_error">Brak wyników dla podanej frazy</string>
+    <string name="empty_query">Wpisz frazę</string>
 </resources>

@@ -7,11 +7,13 @@ import com.endrjudev.stacksearchapp.model.StackResponse;
 
 import org.apache.commons.lang3.StringUtils;
 
+import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class MainViewModel extends ViewModel {
 
+    private ObservableBoolean progressBarVisible;
     private MutableLiveData<StackResponse> queryLiveData;
     private String lastInputQuery;
     private Repository dataSource;
@@ -19,21 +21,45 @@ public class MainViewModel extends ViewModel {
     public MainViewModel() {
         this.dataSource = new NetworkDataSource();
         this.queryLiveData = new MutableLiveData<>();
+        this.progressBarVisible = new ObservableBoolean(false);
     }
 
     public void onSearchButtonClick(String query) {
         if (StringUtils.isNotBlank(query)) {
-            lastInputQuery = query;
+            setProgressBarVisible(true);
+            setLastInputQuery(query);
             getSearchResult();
         }
     }
 
     public void getSearchResult() {
-        final StackRequest request = new StackRequest(lastInputQuery);
-        dataSource.getSearchResult(request, this.queryLiveData);
+        if (StringUtils.isNotBlank(lastInputQuery) && queryLiveData != null) {
+            final StackRequest request = new StackRequest(lastInputQuery);
+            dataSource.getSearchResult(request, this.queryLiveData);
+        }
     }
 
     public MutableLiveData<StackResponse> getQueryLiveData() {
         return queryLiveData;
+    }
+
+    public String getLastInputQuery() {
+        return lastInputQuery;
+    }
+
+    public void setLastInputQuery(String lastInputQuery) {
+        this.lastInputQuery = lastInputQuery;
+    }
+
+    public void clearQueryLiveData() {
+        //queryLiveData.setValue(null);
+    }
+
+    public ObservableBoolean getProgressBarVisible() {
+        return progressBarVisible;
+    }
+
+    public void setProgressBarVisible(boolean progressBarVisible) {
+        this.progressBarVisible.set(progressBarVisible);
     }
 }

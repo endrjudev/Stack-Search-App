@@ -3,9 +3,6 @@ package com.endrjudev.stacksearchapp.view;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -30,6 +26,7 @@ public class SearchFragment extends Fragment {
     private FragmentSearchBinding binding;
     private SearchAdapter adapter;
     private MainViewModel viewModel;
+    private MainActivity activity;
 
     @Nullable
     @Override
@@ -51,44 +48,28 @@ public class SearchFragment extends Fragment {
         return binding.getRoot();
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.options_menu, menu);
-
-        MenuItem mSearchMenuItem = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                if (StringUtils.isNotBlank(query)) {
-                    viewModel.onSearchButtonClick(query);
-                }
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
     private void initializeUi() {
-        final Activity activity = getActivity();
-        if (activity != null) {
-            viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-            adapter = new SearchAdapter();
-            binding.queryResultRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-            binding.queryResultRecycler.setAdapter(adapter);
+        final Activity tempActivity = getActivity();
+        if (tempActivity instanceof MainActivity) {
+            activity = (MainActivity) tempActivity;
         }
-        setHasOptionsMenu(true);
+
+        viewModel = ViewModelProviders.of(activity).get(MainViewModel.class);
+        adapter = new SearchAdapter();
+        binding.queryResultRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.queryResultRecycler.setAdapter(adapter);
+
+        if (activity.getSupportActionBar() != null) {
+            activity.getSupportActionBar().show();
+            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+            activity.getSupportActionBar().setTitle(getString(R.string.query_result, viewModel.getLastInputQuery()));
+        }
     }
 
     private void initializeObservers() {
         viewModel.getQueryLiveData().observe(this, response -> {
-            if (CollectionUtils.isNotEmpty(response.getItems())) {
+            if (response != null && CollectionUtils.isNotEmpty(response.getItems())) {
                 adapter.submitList(response.getItems());
                 binding.swipeRefreshLayout.setEnabled(true);
                 binding.swipeRefreshLayout.setRefreshing(false);
@@ -100,7 +81,10 @@ public class SearchFragment extends Fragment {
     }
 
     private void initializeSwipeToRefreshListener() {
-        binding.swipeRefreshLayout.setOnRefreshListener(() ->
-                viewModel.getSearchResult());
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            if (StringUtils.isNotBlank(viewModel.getLastInputQuery())) {
+                viewModel.getSearchResult();
+            }
+        });
     }
 }
