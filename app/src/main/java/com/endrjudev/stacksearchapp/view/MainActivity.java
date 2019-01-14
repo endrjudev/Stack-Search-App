@@ -1,5 +1,8 @@
 package com.endrjudev.stacksearchapp.view;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.endrjudev.stacksearchapp.R;
@@ -20,10 +23,12 @@ import androidx.work.WorkManager;
 public class MainActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "QueryChannel";
+
     private ActivityMainBinding binding;
     private NavController navController;
     private MainViewModel viewModel;
     private NotificationCompat.Builder notificationBuilder;
+    private int id = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
                 .setContentTitle("HELLO THERE")
                 .setContentText("Notification")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            final int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            final NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_ID, importance);
+            channel.setDescription(CHANNEL_ID);
+
+            final NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
 
         binding.setViewModel(viewModel);
         initializeUi();
@@ -78,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
         WorkManager.getInstance().getWorkInfoByIdLiveData(viewModel.getNetworkWork().getId()).observe(this, workInfo -> {
             if (workInfo != null) {
                 final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-                notificationManager.notify(1, notificationBuilder.build());
+                id++;
+                notificationManager.notify(id, notificationBuilder.build());
             }
         });
     }
