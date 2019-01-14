@@ -7,29 +7,37 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class RetrofitClient {
 
-    private static RetrofitClient ourInstance;
+    private static RetrofitClient retrofitClient;
+
+    private Retrofit retrofit;
 
     private RetrofitClient() {
     }
 
-    public static RetrofitClient getInstance() {
-        if (ourInstance == null) {
-            ourInstance  = new RetrofitClient();
+    public static synchronized RetrofitClient getInstance(String baseUrl) {
+        if (retrofitClient == null) {
+            retrofitClient = new RetrofitClient();
         }
-        return ourInstance;
+        retrofitClient.initRetrofit(baseUrl);
+        return retrofitClient;
     }
 
-    public Retrofit buildRetrofit(String url) {
-        final LoggingInterceptor loggingInterceptor = new LoggingInterceptor();
+    private void initRetrofit(String baseUrl) {
+        //final LoggingInterceptor loggingInterceptor = new LoggingInterceptor();
         final HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY);
         final OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                 .addInterceptor(httpLoggingInterceptor)
-                .addNetworkInterceptor(loggingInterceptor).build();
-        return new Retrofit.Builder()
-                .baseUrl(url)
+                //.addNetworkInterceptor(loggingInterceptor)
+                .build();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
                 .addConverterFactory(MoshiConverterFactory.create())
                 .client(okHttpClient)
                 .build();
+    }
+
+    public Retrofit getClient() {
+        return retrofit;
     }
 }

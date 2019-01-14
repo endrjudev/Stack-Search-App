@@ -18,9 +18,25 @@ public class NetworkDataSource implements Repository {
     private static final String URL = "http://api.stackexchange.com/2.2/";
     private static final String STACK_OVERFLOW = "stackoverflow";
 
-    private Retrofit retrofit = RetrofitClient.getInstance()
-            .buildRetrofit(URL);
-    private StackOverflowService stackOverflowService = retrofit.create(StackOverflowService.class);
+    private static NetworkDataSource instance;
+
+    private StackOverflowService stackOverflowService;
+
+    public static NetworkDataSource getInstance() {
+        if (instance == null) {
+            instance = new NetworkDataSource();
+        }
+        instance.buildNetworkDataSource();
+        return instance;
+    }
+
+    private void buildNetworkDataSource() {
+        final Retrofit retrofit = RetrofitClient.getInstance(URL).getClient();
+        stackOverflowService = retrofit.create(StackOverflowService.class);
+    }
+
+    private NetworkDataSource() {
+    }
 
     @Override
     public void getSearchResult(StackRequest request, final MutableLiveData<StackResponse> liveData) {
@@ -30,7 +46,7 @@ public class NetworkDataSource implements Repository {
         call.enqueue(new Callback<StackResponse>() {
             @Override
             public void onResponse(@NonNull Call<StackResponse> call,@NonNull Response<StackResponse> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && liveData != null) {
                     liveData.setValue(response.body());
                 } else {
                     Timber.e(response.message());

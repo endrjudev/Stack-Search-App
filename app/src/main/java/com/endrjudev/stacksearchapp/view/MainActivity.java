@@ -7,18 +7,23 @@ import com.endrjudev.stacksearchapp.databinding.ActivityMainBinding;
 import com.endrjudev.stacksearchapp.viewmodel.MainViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.work.WorkManager;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String CHANNEL_ID = "QueryChannel";
     private ActivityMainBinding binding;
     private NavController navController;
     private MainViewModel viewModel;
+    private NotificationCompat.Builder notificationBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +31,15 @@ public class MainActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_so_logo)
+                .setContentTitle("HELLO THERE")
+                .setContentText("Notification")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         binding.setViewModel(viewModel);
         initializeUi();
+        observeWorkManager();
     }
 
     @Override
@@ -62,6 +73,16 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
     }
 
+    private void observeWorkManager() {
+        // Experimental - first time with WorkManager :)
+        WorkManager.getInstance().getWorkInfoByIdLiveData(viewModel.getNetworkWork().getId()).observe(this, workInfo -> {
+            if (workInfo != null) {
+                final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                notificationManager.notify(1, notificationBuilder.build());
+            }
+        });
+    }
+
     private void prepareBackToStart() {
         final NavDestination currentDestination = navController.getCurrentDestination();
         if (currentDestination != null) {
@@ -80,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clearViewModelData() {
-        viewModel.clearQueryLiveData();
         viewModel.setLastInputQuery(null);
     }
 }
