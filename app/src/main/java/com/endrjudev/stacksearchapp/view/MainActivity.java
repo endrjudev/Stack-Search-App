@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private NavController navController;
+    //TODO 16.01.2019 Use Dagger to DI
     private MainViewModel viewModel;
 
     @Override

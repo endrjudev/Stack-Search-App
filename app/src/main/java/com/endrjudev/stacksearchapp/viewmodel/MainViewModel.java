@@ -16,6 +16,7 @@ public class MainViewModel extends ViewModel {
     private ObservableBoolean progressBarVisible;
     private MutableLiveData<StackResponse> queryLiveData;
     private String lastInputQuery;
+    //TODO 16.01.2019 Use Dagger to DI
     private Repository dataSource;
 
     public MainViewModel() {
